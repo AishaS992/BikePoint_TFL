@@ -1,5 +1,3 @@
-# BikePoint_TFL
-
 # BikePoint TfL Pipeline
 
 A data pipeline project using **Python** to extract live bike station data from the **TFL Bike Point API**. It's being built in stages, starting with the extract step.
