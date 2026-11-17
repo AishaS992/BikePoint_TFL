@@ -70,3 +70,4 @@ while attempt <= max_attempts:
     
 
 #we want to gitignore the json file with the data bc it's never gonna change 
+
