@@ -2,6 +2,8 @@ from datetime import datetime
 from modules.extract_function import extract_to_json
 import logging
 import os
+from modules.load_function import load_to_s3
+from dotenv import load_dotenv
 
 
 timestamp = datetime.now().strftime('%Y-%m-%d %H-%M-%S')
@@ -22,7 +24,19 @@ logger.info('Logger was successfuly initialised.') #tells us we want the message
 url = 'https://api.tfl.gov.uk/BikePoint/'
 data_dir = 'data'
 
+load_dotenv()               # this beginning gives the python script access to these credientials in our .env file
+
+AWS_ACCESS_KEY = os.getenv('AWS_ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_BUCKET_NAME =os.getenv('AWS_BUCKET_NAME')
+
 
 extract_result = extract_to_json(url, data_dir, timestamp, max_attempts=4, delay=10)
-print(extract_result)
 
+
+if extract_result:
+    load_to_s3(AWS_BUCKET_NAME, AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY, data_dir)
+else:
+    logger.info('Extract saved no data, nothing to attempt to upload so aborted.')
+
+print(extract_result)
