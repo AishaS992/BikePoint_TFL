@@ -11,10 +11,10 @@ jobs:
     environment: Bike Point DES9
     steps:
       - name: Checkout the repo
-        uses: actions/checkout@7
+        uses: actions/checkout@v7
 
       - name: Setup python
-        uses: actions/setup-python@7
+        uses: actions/setup-python@v7
         with:
           python-version: 3.13
 
